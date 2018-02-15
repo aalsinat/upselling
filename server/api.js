@@ -6,12 +6,12 @@ var company = require('./controllers/company');
 
 
 function RestApiController(path, app) {
-}
-
-RestApiController.prototype.serve = function (path, app) {
     /* Init internal properties */
     this._baseUrl = path;
     this._app = app;
+}
+
+RestApiController.prototype.serve = function () {
     /* set middleware actions */
     this._app.use(bodyParser.json());
     this._app.use(bodyParser.urlencoded({extended: false}));
@@ -21,4 +21,4 @@ RestApiController.prototype.serve = function (path, app) {
 }
 
 
-module.exports = new RestApiController();
+module.exports = RestApiController;

@@ -1,3 +1,6 @@
+
+require('./server/config');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,7 +9,6 @@ var mysql = require('mysql');
 var index = require('./routes/index');
 var logging = require('./server/config/logger');
 var api = require('./server/api');
-
 
 var app = express();
 
@@ -21,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 
 // let controller serve api requests
-api.serve('/api', app);
+new api('/api', app).serve();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
