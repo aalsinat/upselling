@@ -3,7 +3,7 @@
 
 var config = module.exports;
 
-var env = config.env = process.env.NODE_ENV || 'development';
+var env = config.env = process.env.NODE_ENV || 'test';
 
 switch (env) {
     case 'development':
@@ -17,15 +17,17 @@ switch (env) {
 }
 
 config.db = {
-    user: 'upselling',
-    password: 'mktinabox',
-    name: 'upselling'
-};
-
-config.db.details = {
-    host: 'localhost',
-    port: 3306,
-    dialect: 'mysql'
+    uri: process.env.CLEARDB_DATABASE_URL,
+    options: {
+        define: {
+            freezeTableName: true,
+            charset: 'utf8',
+            dialectOptions: {
+                collate: 'utf8_general_ci'
+            },
+            timestamps: true
+        }
+    }
 };
 
 config.keys = {

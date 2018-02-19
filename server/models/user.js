@@ -7,19 +7,24 @@ var Sequelize = require('sequelize'),
 var config = require('./../../config'),
     db = require('./../services/database');
 
-// 1: The model schema.
+// 1: The User model schema.
 var modelDefinition = {
     username: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
+        type: Sequelize.STRING(20),
+        primaryKey: true,
     },
-
     password: {
         type: Sequelize.STRING,
         allowNull: false
     },
-
+    email: {
+        type: Sequelize.STRING(50),
+        allowNull: true,
+        unique: true,
+        validate: {
+            isEmail: true
+        }
+    },
     role: {
         type: Sequelize.INTEGER,
         defaultValue: config.userRoles.user
